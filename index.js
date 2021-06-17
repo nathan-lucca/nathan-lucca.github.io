@@ -13,9 +13,9 @@ for (i = 0; i < myNodelist.length; i++) {
 
 // Coloquei para quando clicar no botão "FECHAR", ele ocultar o item da Lista atual
 const close = document.getElementsByClassName("close");
-let i;
-for (i = 0; i < close.length; i++) {
-    close[i].onclick = function () {
+let a;
+for (a = 0; a < close.length; a++) {
+    close[a].onclick = function () {
         const div = this.parentElement;
         div.style.display = "none";
     };
