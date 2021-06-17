@@ -1,28 +1,26 @@
-/** @format */
-
 // Criei um botão "FECHAR" e fixei ele em cada item da Lista
-const myNodelist = document.getElementsByTagName("LI");
-let i;
+var myNodelist = document.getElementsByTagName("LI");
+var i;
 for (i = 0; i < myNodelist.length; i++) {
-    const span = document.createElement("SPAN");
-    const txt = document.createTextNode("\u00D7");
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
     span.className = "close";
     span.appendChild(txt);
     myNodelist[i].appendChild(span);
 }
 
 // Coloquei para quando clicar no botão "FECHAR", ele ocultar o item da Lista atual
-const close = document.getElementsByClassName("close");
-let a;
-for (a = 0; a < close.length; a++) {
-    close[a].onclick = function () {
-        const div = this.parentElement;
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+    close[i].onclick = function () {
+        var div = this.parentElement;
         div.style.display = "none";
     };
 }
 
 // Adicionei um símbolo de ✔️ ai clicar em um item da Lista
-const list = document.querySelector("ul");
+var list = document.querySelector("ul");
 list.addEventListener(
     "click",
     function (ev) {
@@ -33,7 +31,7 @@ list.addEventListener(
     false
 );
 
-// Criei um novo item da Lista ao clicar no botão "ADICIONAR" e salvando no "LOCAL STORAGE"
+// Criei um novo item da Lista ao clicar no botão "ADICIONAR" e salvando as novas atividades
 function newElement() {
     var li = document.createElement("li");
     li.setAttribute("class", "selfLi");
@@ -73,7 +71,38 @@ function newElement() {
         };
         localStorage.setItem("userEdits", JSON.stringify(editElems));
     }
+
     setTimeout(() => {
         saveEdits();
     }, 1000);
 }
+
+// Carregando itens salvos no LocalStorage
+window.onload = function () {
+    if (localStorage.getItem("userEdits")) {
+        JSON.parse(localStorage.getItem("userEdits"))["edit1"].forEach(
+            (index) => {
+                var topened = document.getElementById("myUL");
+                var li = document.createElement("li");
+                li.setAttribute("class", "selfLi");
+                var t = document.createTextNode(index);
+                li.appendChild(t);
+                topened.appendChild(li);
+
+                var span = document.createElement("SPAN");
+                var txt = document.createTextNode("\u00D7");
+                span.className = "close";
+                span.appendChild(txt);
+                li.appendChild(span);
+
+                for (i = 0; i < close.length; i++) {
+                    close[i].onclick = function () {
+                        var div = this.parentElement;
+                        div.style.display = "none";
+                        localStorage.removeItem(topened);
+                    };
+                }
+            }
+        );
+    }
+};
