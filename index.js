@@ -36,9 +36,11 @@ list.addEventListener(
 // Criei um novo item da Lista ao clicar no botão "ADICIONAR"
 function newElement() {
     var li = document.createElement("li");
+    li.setAttribute("class", "selfLi")
     var inputValue = document.getElementById("myInput").value;
     var t = document.createTextNode(inputValue);
     li.appendChild(t);
+
     if (inputValue === "") {
         alert("Você precisa colocar uma Atividade na LISTA!");
     } else {
@@ -59,3 +61,29 @@ function newElement() {
         };
     }
 }
+
+function saveEdits() {
+    localStorage.clear();
+    var elements = document.querySelectorAll('.selfLi');
+    var taskList = [];
+    for (var i = elements.length - 1; i >= 0; i--) {
+      taskList.push(elements[i].innerHTML.split("<span ")[0]);
+    };
+    var editElems = {
+        'edit1': taskList,
+    };
+    localStorage.setItem('userEdits', JSON.stringify(editElems));
+}
+
+window.onload = function () {
+    if(localStorage.getItem('userEdits')) {
+        JSON.parse(localStorage.getItem('userEdits'))['edit1'].forEach((index) => {
+            var topened = document.getElementById('myUL')
+            var li = document.createElement("li");
+            li.setAttribute("class", "selfLi")
+            var t = document.createTextNode(index);
+            li.appendChild(t);
+            topened.appendChild(li)
+        });
+    };
+};
