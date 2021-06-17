@@ -35,10 +35,10 @@ list.addEventListener(
 
 // Criei um novo item da Lista ao clicar no botão "ADICIONAR" e salvando no "LOCAL STORAGE"
 function newElement() {
-    const li = document.createElement("li");
+    var li = document.createElement("li");
     li.setAttribute("class", "selfLi");
-    const inputValue = document.getElementById("myInput").value;
-    const t = document.createTextNode(inputValue);
+    var inputValue = document.getElementById("myInput").value;
+    var t = document.createTextNode(inputValue);
     li.appendChild(t);
 
     if (inputValue === "") {
@@ -48,27 +48,27 @@ function newElement() {
     }
     document.getElementById("myInput").value = "";
 
-    const span = document.createElement("SPAN");
-    const txt = document.createTextNode("\u00D7");
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
     span.className = "close";
     span.appendChild(txt);
     li.appendChild(span);
 
     for (i = 0; i < close.length; i++) {
         close[i].onclick = function () {
-            const div = this.parentElement;
+            var div = this.parentElement;
             div.style.display = "none";
         };
     }
 
     function saveEdits() {
         localStorage.clear();
-        const elements = document.querySelectorAll(".selfLi");
-        let taskList = [];
+        var elements = document.querySelectorAll(".selfLi");
+        var taskList = [];
         for (var i = elements.length - 1; i >= 0; i--) {
             taskList.push(elements[i].innerHTML.split("<span ")[0]);
         }
-        let editElems = {
+        var editElems = {
             edit1: taskList,
         };
         localStorage.setItem("userEdits", JSON.stringify(editElems));
