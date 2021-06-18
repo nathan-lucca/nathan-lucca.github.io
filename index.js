@@ -99,7 +99,6 @@ window.onload = function () {
                     close[i].onclick = function () {
                         var div = this.parentElement;
                         div.style.display = "none";
-                        localStorage.removeItem(topened);
                     };
                 }
             }
